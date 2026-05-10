@@ -92,3 +92,31 @@ footer {
   color: white;
   border: 1px solid black;
 }
+
+/* National Parks Website Part 2 */
+.is-hidden {
+  display: none;
+}
+
+#header-menu-options {
+  position: absolute; 
+  right: 10.9%;
+  top: 12.5%;
+  z-index: 10;
+  background-color: var(--header-footer-color);
+}
+
+#header-menu-options ul {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem;
+}
+
+#header-menu-options li {
+  padding: 0.75rem;
+  cursor: pointer;  border-bottom: 1px solid var(--background-color);
+}
+
+#overview.overlay-hover {
+  background-color: var(--background-color);
+}
