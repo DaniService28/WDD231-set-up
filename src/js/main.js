@@ -90,6 +90,67 @@ function setupMapModalAndPromotions() {
   }
 }
 
-loadParkData();
-setupMapModalAndPromotions();
-addEventListeners();
+
+// Website Park Part 4
+
+const MENU_DATA_URL = "/data/menu.json";
+
+function buildHeaderMenuWithThen() {
+  const headerMenuList = document.querySelector("#header-menu-options ul");
+  if (!headerMenuList) return;
+
+  fetch(MENU_DATA_URL)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      headerMenuList.innerHTML = "";
+
+      data.menu.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item.name;
+        li.dataset.menuId = item.id;
+        li.dataset.href = item.href;
+
+        if (item.id === "maps") li.id = "header-maps-link";
+
+        headerMenuList.appendChild(li);
+      });
+    });
+}
+
+async function buildParkMenuWithAsyncAwait() {
+  const parkMenuList = document.querySelector("#park-menu ul");
+  if (!parkMenuList) return;
+
+  const response = await fetch(MENU_DATA_URL);
+  const data = await response.json();
+
+  // Build the entire menu in one pass.
+  parkMenuList.innerHTML = data.menu
+    .map(
+      (item) => `
+        <li
+          ${item.id === "maps" ? 'id="park-maps-link"' : ""}
+          data-menu-id="${item.id}"
+          data-href="${item.href}">
+          <p>${item.name}</p>
+          <p>
+            <svg>
+              <use href="${item.iconUrl}"></use>
+            </svg>
+          </p>
+        </li>
+      `
+    )
+    .join("");
+}
+
+async function init() {
+  loadParkData();
+  buildHeaderMenuWithThen();
+  await buildParkMenuWithAsyncAwait();
+  addEventListeners();
+  setupMapModalAndPromotions();
+}
+
+init();
