@@ -2,13 +2,13 @@
 import js from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
-import importPlugin from "eslint-plugin-import";
+import importPlugin from "eslint-plugin-import"; // REMOVE THIS LINE
 import promisePlugin from "eslint-plugin-promise";
 import sonarjs from "eslint-plugin-sonarjs";
 
 export default [
   js.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
+  ...tseslint.configs.recommendedTypeChecked, // THIS ONE TOO
 
   {
     files: ["**/*.{js,mjs,cjs}"],
@@ -39,6 +39,7 @@ export default [
       "promise/catch-or-return": "warn",
       "promise/no-return-wrap": "warn",
 
+      //COMMENT OUT ALL TYPESCRIPT RULES FOR NOW, WE'LL GET TO THEM LATER
       "@typescript-eslint/no-unnecessary-condition": "warn",
       "@typescript-eslint/strict-boolean-expressions": "warn",
       "@typescript-eslint/no-floating-promises": "warn",
